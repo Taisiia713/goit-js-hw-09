@@ -1,8 +1,6 @@
-// Описаний в документації
 import SimpleLightbox from 'simplelightbox';
-// Додатковий імпорт стилів
+
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import { preview } from 'vite';
 
 const images = [
   {
@@ -76,13 +74,27 @@ container.insertAdjacentHTML('beforeend', galleryContainer(images));
 function galleryContainer(arr) {
   return arr
     .map(
-      ({ preview, original, description }) => `<li class="gallery-item">
- <a class="gallery-link" href="large-image.jpg">
-   <img class="gallery-image" width="360" height="200"
+      ({
+        preview,
+        original,
+        description,
+        id,
+      }) => `<li class="gallery-item" data-id="${id}">
+ <a class="gallery-link" href="${original}">
+   <img 
+   class="gallery-image" width="360" height="200"
    src="${preview}" 
-   alt="${description}" />
+   alt="${description}"/>
  </a>
-</li>;`
+</li>`
     )
     .join('');
 }
+
+container.insertAdjacentHTML('beforeend', galleryContainer(arr));
+
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionPosition: 'bottom',
+  captionDelay: 250,
+});
