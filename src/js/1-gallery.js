@@ -71,8 +71,8 @@ const images = [
 const container = document.querySelector('.gallery');
 container.insertAdjacentHTML('beforeend', galleryContainer(images));
 
-function galleryContainer(arr) {
-  return arr
+function galleryContainer(images) {
+  return images
     .map(
       ({
         preview,
@@ -91,7 +91,7 @@ function galleryContainer(arr) {
     .join('');
 }
 
-container.insertAdjacentHTML('beforeend', galleryContainer(arr));
+container.innerHTML = galleryContainer(images);
 
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
