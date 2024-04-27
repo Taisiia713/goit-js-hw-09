@@ -1,5 +1,4 @@
 import SimpleLightbox from 'simplelightbox';
-
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const images = [
@@ -68,10 +67,9 @@ const images = [
   },
 ];
 
-const container = document.querySelector('.gallery');
-container.insertAdjacentHTML('beforeend', galleryContainer(images));
+const galleryContainer = document.querySelector('.gallery');
 
-function galleryContainer(images) {
+function createMarkup(images) {
   return images
     .map(
       ({
@@ -81,9 +79,9 @@ function galleryContainer(images) {
         id,
       }) => `<li class="gallery-item" data-id="${id}">
  <a class="gallery-link" href="${original}">
-   <img 
+   <img
    class="gallery-image" width="360" height="200"
-   src="${preview}" 
+   src="${preview}"
    alt="${description}"/>
  </a>
 </li>`
@@ -91,7 +89,7 @@ function galleryContainer(images) {
     .join('');
 }
 
-container.innerHTML = galleryContainer(images);
+galleryContainer.innerHTML = createMarkup(images);
 
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
